@@ -1,6 +1,40 @@
-<h2>Kelvin Dealca</h2>
-<p>Hi there from randomizer</p>
+<md-card flex>
 
-<!--<md-button class="share" md-no-ink ng-click="ul.makeContact(ul.selected)" aria-label="Share with {{ ul.selected.name }}">-->
-<!--<md-icon md-svg-icon="share"></md-icon>-->
-<!--</md-button>-->
+
+    <md-card-content layout="column">
+        <div layout="column">
+            <h3>60 Min. Tru Hot Pilates & Sculpt (All Levels)</h3>
+            <h4>6:00 am - 7:00 am</h4>
+            <p>Jacqueline Reinhardt</p>
+        </div>
+
+    </md-card-content>
+</md-card>
+<md-card flex>
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-subhead">Select the studio location and the date you want to randomize</span>
+        </md-card-title-text>
+    </md-card-title>
+
+    <md-card-content layout="column">
+        <div layout="column" style="padding-bottom: 13px;">
+            <md-input-container>
+                <label>Studio</label>
+                <md-select ng-model="$ctrl.formModel.location">
+                    <md-option value="Eastern">Eastern</md-option>
+                    <md-option value="Blue Diamond">Blue Diamond</md-option>
+                    <md-option value="Summerlin">Summerlin</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+        <div layout="column" style="padding-bottom: 13px;">
+            <md-datepicker ng-model="$ctrl.formModel.date" md-placeholder="Enter date" required></md-datepicker>
+        </div>
+        <div layout="column" style="padding-bottom: 13px;">
+            <md-button class="md-raised md-primary">Randomize</md-button>
+        </div>
+    </md-card-content>
+</md-card>
+
+
