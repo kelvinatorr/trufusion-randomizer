@@ -1,6 +1,6 @@
 <md-card flex ng-if="$ctrl.selectedSchedule">
-    <md-card-content layout="column" >
-        <div layout="column" ng-hide="$ctrl.gettingData">
+    <md-card-content layout="column">
+        <div layout="column" ng-hide="$ctrl.gettingData" id="selectedClassDiv" ng-class="{'done': $ctrl.randomizerDone}">
             <h3>{{$ctrl.selectedSchedule.name}}</h3>
             <h4>{{$ctrl.selectedSchedule.time}}</h4>
             <p>{{$ctrl.selectedSchedule.instructor}}</p>
