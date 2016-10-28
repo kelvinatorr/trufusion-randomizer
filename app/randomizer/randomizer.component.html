@@ -1,9 +1,12 @@
 <md-card flex ng-if="$ctrl.selectedSchedule">
-    <md-card-content layout="column">
-        <div layout="column">
+    <md-card-content layout="column" >
+        <div layout="column" ng-hide="$ctrl.gettingData">
             <h3>{{$ctrl.selectedSchedule.name}}</h3>
             <h4>{{$ctrl.selectedSchedule.time}}</h4>
             <p>{{$ctrl.selectedSchedule.instructor}}</p>
+        </div>
+        <div layout="column" ng-show="$ctrl.gettingData" layout-align="center center">
+            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
         </div>
 
     </md-card-content>

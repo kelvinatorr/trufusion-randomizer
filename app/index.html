@@ -49,12 +49,12 @@
                         .state('randomizer', {
                             parent: 'app',
                             url: '/randomizer',
-                            template: '<randomizer></randomizer>',
-                            resolve: {
-                                schedule: ['Schedule', function(Schedule) {
-                                    return Schedule.getData({location: 'Eastern', date: new Date()});
-                                }]
-                            }
+                            template: '<randomizer></randomizer>'
+//                            resolve: {
+//                                schedule: ['Schedule', function(Schedule) {
+//                                    return Schedule.getData({location: 'Eastern', date: new Date()});
+//                                }]
+//                            }
                         });
 //                        .state('schedule', {
 //                            url: '/app',
