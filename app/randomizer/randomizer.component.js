@@ -7,10 +7,23 @@
             controller: RandomizerCtrl
         });
 
-    function RandomizerCtrl() {
-        this.formModel = {
+    function RandomizerCtrl(Schedule) {
+        var self = this;
+
+        self.formModel = {
             location: 'Eastern',
             date: new Date()
         };
+
+        self.scheduleData = Schedule.data;
+
+        self.selectedSchedule = null;
+
+        self.randomize = function(formModel) {
+            Schedule.getData(formModel).then(function() {
+                self.scheduleData = Schedule.data;
+            });
+        }
+
     }
 })();
