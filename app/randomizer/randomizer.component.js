@@ -8,6 +8,9 @@
         });
 
     function RandomizerCtrl() {
-
+        this.formModel = {
+            location: 'Eastern',
+            date: new Date()
+        };
     }
 })();
