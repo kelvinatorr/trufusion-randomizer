@@ -1,6 +1,3 @@
-/**
- * Created by Kelvin on 10/28/2016.
- */
 (function() {
     'use strict';
 
@@ -10,7 +7,13 @@
             controller: ShellCtrl
         });
 
-    function ShellCtrl() {
+    function ShellCtrl($mdSidenav) {
+        var self = this;
 
+        self.toggleList = toggleList;
+
+        function toggleList() {
+            $mdSidenav('left').toggle();
+        }
     }
 })();

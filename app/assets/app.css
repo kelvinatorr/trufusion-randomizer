@@ -31,6 +31,7 @@ md-list-item > button {
 
   md-list .md-button.selected {
     color: #03a9f4;
+    background-color: lightgrey;
   }
 
   md-sidenav  md-list {

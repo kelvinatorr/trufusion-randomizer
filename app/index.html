@@ -42,26 +42,29 @@
 
                 $stateProvider
                         .state('app', {
-                            abstract: false,
+                            abstract: true,
                             url: '/app',
                             template: '<shell></shell>'
+                        })
+                        .state('randomizer', {
+                            parent: 'app',
+                            url: '/randomizer',
+                            template: '<randomizer></randomizer>'
                         });
+//                        .state('schedule', {
+//                            url: '/app',
+//                            template: '<shell></shell>'
+//                        });
 
 
-                $urlRouterProvider.otherwise('/app');
+                $urlRouterProvider.otherwise('/app/randomizer');
 
                 $mdIconProvider
-                        .defaultIconSet("./assets/svg/avatars.svg", 128)
-                        .icon("menu", "./assets/svg/menu.svg", 24)
-                        .icon("share", "./assets/svg/share.svg", 24)
-                        .icon("google_plus", "./assets/svg/google_plus.svg", 512)
-                        .icon("hangouts", "./assets/svg/hangouts.svg", 512)
-                        .icon("twitter", "./assets/svg/twitter.svg", 512)
-                        .icon("phone", "./assets/svg/phone.svg", 512);
+                        .icon("menu", "./assets/svg/menu.svg", 24);
 
                 $mdThemingProvider.theme('default')
-                        .primaryPalette('brown')
-                        .accentPalette('red');
+                        .primaryPalette('cyan')
+                        .accentPalette('deep-orange');
 
                 // Remove debug info when in production.
                 if (window.location.host.split(':')[0] != 'localhost') $compileProvider.debugInfoEnabled(false);
@@ -71,5 +74,6 @@
 
     </script>
     <script src="shell/shell.component.js"></script>
+    <script src="randomizer/randomizer.component.js"></script>
 </body>
 </html>
