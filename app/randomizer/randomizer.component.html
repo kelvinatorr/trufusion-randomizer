@@ -1,9 +1,9 @@
 <md-card flex ng-if="$ctrl.selectedSchedule">
     <md-card-content layout="column">
         <div layout="column">
-            <h3>60 Min. Tru Hot Pilates & Sculpt (All Levels)</h3>
-            <h4>6:00 am - 7:00 am</h4>
-            <p>Jacqueline Reinhardt</p>
+            <h3>{{$ctrl.selectedSchedule.name}}</h3>
+            <h4>{{$ctrl.selectedSchedule.time}}</h4>
+            <p>{{$ctrl.selectedSchedule.instructor}}</p>
         </div>
 
     </md-card-content>
