@@ -8,6 +8,8 @@ var cheerio = require('cheerio');
 var app = express();
 var moment = require('moment');
 
+app.use(express.static('app'));
+
 app.get('/schedule.json', function(req, res){
 
     const locationHash = {
