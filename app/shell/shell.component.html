@@ -1,0 +1,29 @@
+<md-toolbar layout="row">
+    <md-button class="menu" ng-click="$ctrl.toggleList()" aria-label="Show User List">
+        <md-icon md-svg-icon="menu" ></md-icon>
+    </md-button>
+    <h1>TF Random Class Picker</h1>
+</md-toolbar>
+
+<div flex layout="row">
+
+    <md-sidenav  ng-click="$ctrl.toggleList()" md-component-id="left" class="md-whiteframe-z2" >
+        <md-list>
+            <md-list-item>
+                <md-button ng-click="$ctrl.navigate()" class="selected">
+                    Random Class Picker
+                </md-button>
+            </md-list-item>
+            <!--<md-list-item>-->
+                <!--<md-button ng-click="$ctrl.navigate()">-->
+                    <!--Class Schedule-->
+                <!--</md-button>-->
+            <!--</md-list-item>-->
+        </md-list>
+    </md-sidenav>
+
+    <md-content flex id="content">
+        <ui-view></ui-view>
+    </md-content>
+
+</div>

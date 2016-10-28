@@ -1,0 +1,41 @@
+<md-card flex ng-if="$ctrl.selectedSchedule">
+    <md-card-content layout="column">
+        <div layout="column" ng-hide="$ctrl.gettingData" id="selectedClassDiv" ng-class="{'done': $ctrl.randomizerDone}">
+            <h3>{{$ctrl.selectedSchedule.name}}</h3>
+            <h4>{{$ctrl.selectedSchedule.time}}</h4>
+            <p>{{$ctrl.selectedSchedule.instructor}}</p>
+        </div>
+        <div layout="column" ng-show="$ctrl.gettingData" layout-align="center center">
+            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+
+    </md-card-content>
+</md-card>
+<md-card flex>
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-subhead">Select the studio location and the date you want to randomize</span>
+        </md-card-title-text>
+    </md-card-title>
+
+    <md-card-content layout="column">
+        <div layout="column" style="padding-bottom: 13px;">
+            <md-input-container>
+                <label>Studio</label>
+                <md-select ng-model="$ctrl.formModel.location" autofocus>
+                    <md-option value="Eastern">Eastern</md-option>
+                    <md-option value="Blue Diamond">Blue Diamond</md-option>
+                    <md-option value="Summerlin">Summerlin</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+        <div layout="column" style="padding-bottom: 13px;">
+            <md-datepicker ng-model="$ctrl.formModel.date" md-placeholder="Enter date" required></md-datepicker>
+        </div>
+        <div layout="column" style="padding-bottom: 13px;">
+            <md-button class="md-raised md-primary" ng-click="$ctrl.randomize($ctrl.formModel)">Randomize</md-button>
+        </div>
+    </md-card-content>
+</md-card>
+
+
