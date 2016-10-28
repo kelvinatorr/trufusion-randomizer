@@ -1,13 +1,14 @@
 {
-  "name"         : "trufusion-randomizer",
-  "version"      : "0.0.1",
-  "description"  : "randomize trufusion classes",
-  "main"         : "server.js",
-  "author"       : "kelvinatorr",
-  "dependencies" : {
-    "express"    : "latest",
-    "request"    : "latest",
-    "cheerio"    : "latest"
+  "name": "trufusion-randomizer",
+  "version": "0.0.1",
+  "description": "randomize trufusion classes",
+  "main": "server.js",
+  "author": "kelvinatorr",
+  "dependencies": {
+    "cheerio": "latest",
+    "express": "latest",
+    "moment": "^2.15.2",
+    "request": "latest"
   },
   "scripts": {
     "start": "node server.js"
