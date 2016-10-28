@@ -1,0 +1,16 @@
+{
+  "name": "Trufusion Random Class Picker",
+  "short_name": "TF Randomizer",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/assets/dice-144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }
+  ],
+  "display": "standalone",
+  "start_url": "/",
+  "description": "Can't decide which Trufusion class to take? Pick randomly!",
+  "background_color": "rgb(0,188,212)"
+}
