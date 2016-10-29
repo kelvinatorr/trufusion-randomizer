@@ -2,28 +2,32 @@
     <md-button class="menu" ng-click="$ctrl.toggleList()" aria-label="Show User List">
         <md-icon md-svg-icon="menu" ></md-icon>
     </md-button>
-    <h1>TF Random Class Picker</h1>
+    <h1>{{$ctrl.headerText}}</h1>
 </md-toolbar>
 
 <div flex layout="row">
 
     <md-sidenav  ng-click="$ctrl.toggleList()" md-component-id="left" class="md-whiteframe-z2" >
         <md-list>
-            <md-list-item>
-                <md-button ng-click="$ctrl.navigate()" class="selected">
+            <md-list-item class="tcr-nav-list-item">
+                <a class="md-button" ui-sref="randomizer" ng-class="{'selected': $ctrl.currentState === 'randomizer'}">
                     Random Class Picker
-                </md-button>
+                </a>
             </md-list-item>
-            <!--<md-list-item>-->
-                <!--<md-button ng-click="$ctrl.navigate()">-->
-                    <!--Class Schedule-->
-                <!--</md-button>-->
-            <!--</md-list-item>-->
+            <md-list-item class="tcr-nav-list-item">
+                <a class="md-button" ui-sref="scheduleDisplay" ng-class="{'selected': $ctrl.currentState === 'scheduleDisplay'}">
+                    Class Schedule
+                </a>
+            </md-list-item>
         </md-list>
     </md-sidenav>
 
     <md-content flex id="content">
-        <ui-view></ui-view>
+        <ui-view ng-hide="$ctrl.isChangingState"></ui-view>
+        <div layout="column" layout-align="center center" ng-show="$ctrl.isChangingState" class="tcr-padding-top-30">
+            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+
     </md-content>
 
 </div>

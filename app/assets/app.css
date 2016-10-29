@@ -24,7 +24,7 @@ md-toolbar h3 {
 
 /* Sidenav area */
 
-md-list-item > button {
+md-list-item > a.md-button {
   width:100%;
   text-align:left !important;
 }
@@ -38,6 +38,9 @@ md-list-item > button {
     padding: 0px 0px 8px 0px;
   }
 
+  md-list>.tcr-nav-list-item {
+    padding: 0;
+  }
 
 /* Primary content area */
 
@@ -138,4 +141,8 @@ span.name {
 
 .tcr-padding-bottom-13 {
   padding-bottom: 13px;
+}
+
+.tcr-padding-top-30 {
+  padding-top: 30px;
 }

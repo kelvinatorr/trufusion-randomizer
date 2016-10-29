@@ -51,17 +51,24 @@
                         .state('randomizer', {
                             parent: 'app',
                             url: '/randomizer',
-                            template: '<randomizer></randomizer>'
-//                            resolve: {
-//                                schedule: ['Schedule', function(Schedule) {
-//                                    return Schedule.getData({location: 'Eastern', date: new Date()});
-//                                }]
-//                            }
+                            template: '<randomizer></randomizer>',
+                            data: {
+                                displayName: 'TF Random Class Picker'
+                            }
+                        })
+                        .state('scheduleDisplay', {
+                            parent: 'app',
+                            url: '/schedule',
+                            template: '<schedule-display></schedule-display>',
+                            resolve: {
+                                schedule: ['Schedule', function(Schedule) {
+                                    return Schedule.getData({location: 'Eastern', date: new Date()});
+                                }]
+                            },
+                            data: {
+                                displayName: 'TF Schedule'
+                            }
                         });
-//                        .state('schedule', {
-//                            url: '/app',
-//                            template: '<shell></shell>'
-//                        });
 
 
                 $urlRouterProvider.otherwise('/app/randomizer');
@@ -84,5 +91,6 @@
     <script src="randomizer/randomizer.component.js"></script>
     <script src="schedule/schedule.factory.js"></script>
     <script src="class-filter/class-filter.component.js"></script>
+    <script src="schedule-display/schedule-display.component.js"></script>
 </body>
 </html>
