@@ -10,11 +10,6 @@
     function RandomizerCtrl(Schedule, $timeout) {
         var self = this;
 
-        self.formModel = {
-            location: 'Eastern',
-            date: new Date()
-        };
-
         self.selectedSchedule = null;
 
         self.gettingData = false;

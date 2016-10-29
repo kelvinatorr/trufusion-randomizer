@@ -135,3 +135,7 @@ span.name {
 #selectedClassDiv.done>h3 {
   font-size: 2em;
 }
+
+.tcr-padding-bottom-13 {
+  padding-bottom: 13px;
+}
