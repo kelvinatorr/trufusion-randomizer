@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <title>Trufusion Class Randomizer</title>
-    <link rel="shortcut icon" href="imgs/favicon.ico">
+    <link rel="shortcut icon" href="assets/favicon.ico">
     <link rel="manifest" href="manifest.json">
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
@@ -30,7 +30,7 @@
     <!-- Angular Material Library -->
     <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
-    <!-- Your application bootstrap  -->
+    <!-- Application bootstrap  -->
     <script type="text/javascript">
         (function () {
             var app = angular.module('tcrApp', ['ngMaterial', 'ngAria', 'ngAnimate', 'ui.router']);
@@ -51,17 +51,26 @@
                         .state('randomizer', {
                             parent: 'app',
                             url: '/randomizer',
-                            template: '<randomizer></randomizer>'
-//                            resolve: {
-//                                schedule: ['Schedule', function(Schedule) {
-//                                    return Schedule.getData({location: 'Eastern', date: new Date()});
-//                                }]
-//                            }
+                            template: '<randomizer></randomizer>',
+                            data: {
+                                displayName: 'TF Random Class Picker',
+                                action: 'randomize'
+                            }
+                        })
+                        .state('scheduleDisplay', {
+                            parent: 'app',
+                            url: '/schedule',
+                            template: '<schedule-display></schedule-display>',
+                            resolve: {
+                                schedule: ['Schedule', function(Schedule) {
+                                    return Schedule.getData({location: 'Eastern', date: new Date()});
+                                }]
+                            },
+                            data: {
+                                displayName: 'TF Schedule',
+                                action: 'view'
+                            }
                         });
-//                        .state('schedule', {
-//                            url: '/app',
-//                            template: '<shell></shell>'
-//                        });
 
 
                 $urlRouterProvider.otherwise('/app/randomizer');
@@ -83,5 +92,7 @@
     <script src="shell/shell.component.js"></script>
     <script src="randomizer/randomizer.component.js"></script>
     <script src="schedule/schedule.factory.js"></script>
+    <script src="class-filter/class-filter.component.js"></script>
+    <script src="schedule-display/schedule-display.component.js"></script>
 </body>
 </html>

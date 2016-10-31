@@ -1,6 +1,3 @@
-/**
- * Created by Kelvin on 10/27/2016.
- */
 var express = require('express');
 var fs = require('fs');
 var request = require('request');
@@ -27,81 +24,81 @@ app.get('/schedule.json', function(req, res){
 
     var classes = [];
 
-    //fs.readFile('output.html', function(err, data) {
-    //    var $ = cheerio.load(data);
-    //    $('table').filter(function () {
-    //        var data = $(this);
-    //
-    //        var trs = data.children().slice(1);
-    //
-    //        console.log('Number of classes: ', trs.length);
-    //
-    //        for(var i = 0; i < trs.length; i++) {
-    //            var cheerioTr = $(trs[i]);
-    //            var fitnessClass = {};
-    //            // get class time
-    //            var startTime = cheerioTr.find('.hc_starttime').text().trim();
-    //            var endTime = cheerioTr.find('.hc_endtime').text().trim();
-    //            fitnessClass.time = startTime + ' ' + endTime;
-    //            // get class name
-    //            fitnessClass.name = cheerioTr.find('.classname').children().first().text().trim();
-    //            // get instructor
-    //            var tDTrainerSpan = cheerioTr.find('td.trainer').children();
-    //            var mainInstructor = tDTrainerSpan.first().children().first().text().trim();
-    //            var subInstructor = '';
-    //            if(tDTrainerSpan.children().length > 1) {
-    //                subInstructor = ' (sub for ' + tDTrainerSpan.children().last().children().first().text().trim() + ')';
-    //            }
-    //            fitnessClass.instructor = mainInstructor + subInstructor;
-    //            classes.push(fitnessClass);
-    //        }
-    //
-    //        res.send(JSON.stringify(classes));
-    //    });
-    //});
+    fs.readFile('output.html', function(err, data) {
+        var $ = cheerio.load(data);
+        $('table').filter(function () {
+            var data = $(this);
 
+            var trs = data.children().slice(1);
 
+            console.log('Number of classes: ', trs.length);
 
-    request(url, function(error, response, responsePayload){
-        if(!error) {
-            var responseJSON = JSON.parse(responsePayload);
-            //fs.writeFile('output2.html', JSON.stringify(responseJSON, null, 4), function(err){
-            //    console.log('File successfully written! - Check your project directory for the output.json file');
-            //});
-            //res.send('done');
-            var $ = cheerio.load(responseJSON.contents);
-            $('table').filter(function () {
-                var data = $(this);
-
-                var trs = data.children().slice(1);
-
-                console.log('Number of classes: ', trs.length);
-
-                for(var i = 0; i < trs.length; i++) {
-                    var cheerioTr = $(trs[i]);
-                    var fitnessClass = {};
-                    // get class time
-                    var startTime = cheerioTr.find('.hc_starttime').text().trim();
-                    var endTime = cheerioTr.find('.hc_endtime').text().trim();
-                    fitnessClass.time = startTime + ' ' + endTime;
-                    // get class name
-                    fitnessClass.name = cheerioTr.find('.classname').children().first().text().trim();
-                    // get instructor
-                    var tDTrainerSpan = cheerioTr.find('td.trainer').children();
-                    var mainInstructor = tDTrainerSpan.first().children().first().text().trim();
-                    var subInstructor = '';
-                    if(tDTrainerSpan.children().length > 1) {
-                        subInstructor = ' (sub for ' + tDTrainerSpan.children().last().children().first().text().trim() + ')';
-                    }
-                    fitnessClass.instructor = mainInstructor + subInstructor;
-                    classes.push(fitnessClass);
+            for(var i = 0; i < trs.length; i++) {
+                var cheerioTr = $(trs[i]);
+                var fitnessClass = {};
+                // get class time
+                var startTime = cheerioTr.find('.hc_starttime').text().trim();
+                var endTime = cheerioTr.find('.hc_endtime').text().trim();
+                fitnessClass.time = startTime + ' ' + endTime;
+                // get class name
+                fitnessClass.name = cheerioTr.find('.classname').children().first().text().trim();
+                // get instructor
+                var tDTrainerSpan = cheerioTr.find('td.trainer').children();
+                var mainInstructor = tDTrainerSpan.first().children().first().text().trim();
+                var subInstructor = '';
+                if(tDTrainerSpan.children().length > 1) {
+                    subInstructor = ' (sub for ' + tDTrainerSpan.children().last().children().first().text().trim() + ')';
                 }
+                fitnessClass.instructor = mainInstructor + subInstructor;
+                classes.push(fitnessClass);
+            }
 
-                res.send(JSON.stringify(classes, null, 4));
-            });
-        }
+            res.send(JSON.stringify(classes));
+        });
     });
+
+
+
+    //request(url, function(error, response, responsePayload){
+    //    if(!error) {
+    //        var responseJSON = JSON.parse(responsePayload);
+    //        //fs.writeFile('output2.html', JSON.stringify(responseJSON, null, 4), function(err){
+    //        //    console.log('File successfully written! - Check your project directory for the output.json file');
+    //        //});
+    //        //res.send('done');
+    //        var $ = cheerio.load(responseJSON.contents);
+    //        $('table').filter(function () {
+    //            var data = $(this);
+    //
+    //            var trs = data.children().slice(1);
+    //
+    //            console.log('Number of classes: ', trs.length);
+    //
+    //            for(var i = 0; i < trs.length; i++) {
+    //                var cheerioTr = $(trs[i]);
+    //                var fitnessClass = {};
+    //                // get class time
+    //                var startTime = cheerioTr.find('.hc_starttime').text().trim();
+    //                var endTime = cheerioTr.find('.hc_endtime').text().trim();
+    //                fitnessClass.time = startTime + ' ' + endTime;
+    //                // get class name
+    //                fitnessClass.name = cheerioTr.find('.classname').children().first().text().trim();
+    //                // get instructor
+    //                var tDTrainerSpan = cheerioTr.find('td.trainer').children();
+    //                var mainInstructor = tDTrainerSpan.first().children().first().text().trim();
+    //                var subInstructor = '';
+    //                if(tDTrainerSpan.children().length > 1) {
+    //                    subInstructor = ' (sub for ' + tDTrainerSpan.children().last().children().first().text().trim() + ')';
+    //                }
+    //                fitnessClass.instructor = mainInstructor + subInstructor;
+    //                classes.push(fitnessClass);
+    //            }
+    //
+    //            res.send(JSON.stringify(classes, null, 4));
+    //        });
+    //    }
+    //});
 });
 
-app.listen();
+app.listen(8081);
 exports = module.exports = app;
