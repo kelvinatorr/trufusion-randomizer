@@ -13,11 +13,13 @@
             }
         });
 
-    function ClassFilter() {
+    function ClassFilter($state) {
         this.formModel = {
             location: 'Eastern',
             date: new Date()
         };
+
+        this.action = $state.current.data.action;
 
 
     }

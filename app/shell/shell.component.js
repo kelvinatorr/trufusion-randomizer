@@ -19,11 +19,9 @@
         self.currentState = $state.current.name;
 
         $rootScope.$on('$stateChangeSuccess', function (event, toState) {
-            $timeout(function() {
-                self.headerText = toState.data.displayName;
-                self.currentState = $state.current.name;
-                self.isChangingState = false;
-            }, 4000);
+            self.headerText = toState.data.displayName;
+            self.currentState = $state.current.name;
+            self.isChangingState = false;
 
         });
 

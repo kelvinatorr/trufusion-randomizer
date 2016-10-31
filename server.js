@@ -1,6 +1,3 @@
-/**
- * Created by Kelvin on 10/27/2016.
- */
 var express = require('express');
 var fs = require('fs');
 var request = require('request');

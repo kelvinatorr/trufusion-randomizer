@@ -53,7 +53,8 @@
                             url: '/randomizer',
                             template: '<randomizer></randomizer>',
                             data: {
-                                displayName: 'TF Random Class Picker'
+                                displayName: 'TF Random Class Picker',
+                                action: 'randomize'
                             }
                         })
                         .state('scheduleDisplay', {
@@ -66,7 +67,8 @@
                                 }]
                             },
                             data: {
-                                displayName: 'TF Schedule'
+                                displayName: 'TF Schedule',
+                                action: 'view'
                             }
                         });
 
