@@ -5,7 +5,7 @@ var cheerio = require('cheerio');
 var app = express();
 var moment = require('moment');
 
-app.use(express.static('app'));
+app.use(express.static('dist'));
 
 app.get('/schedule.json', function(req, res){
 
