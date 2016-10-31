@@ -20,7 +20,7 @@
             <md-datepicker ng-model="$ctrl.formModel.date" md-placeholder="Enter date" required></md-datepicker>
         </div>
         <div layout="column" class="tcr-padding-bottom-13">
-            <md-button class="md-raised md-primary" ng-click="$ctrl.submit({formModel: $ctrl.formModel})">{{::$ctrl.action}}</md-button>
+            <md-button id="filterSubmit" class="md-raised md-primary" ng-click="$ctrl.submit({formModel: $ctrl.formModel})">{{::$ctrl.action}}</md-button>
         </div>
     </md-card-content>
 </md-card>
