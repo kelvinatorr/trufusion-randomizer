@@ -17,6 +17,7 @@ self.addEventListener('install', function(event) {
                 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js',
                 'https://fonts.gstatic.com/s/roboto/v15/oMMgfZMQthOryQo9n22dcuvvDin1pK8aKteLpeZ5c0A.woff2',
                 'https://fonts.gstatic.com/s/roboto/v15/RxZJdnzeo3R5zSexge8UUZBw1xU1rKptJj_0jans920.woff2',
+                'assets/js/idb.min.js',
                 '/',
                 'assets/app.css',
                 'manifest.json',
@@ -25,7 +26,7 @@ self.addEventListener('install', function(event) {
                 'randomizer/randomizer.component.html',
                 'class-filter/class-filter.component.html',
                 'schedule-display/schedule-display.component.html',
-                'app/app-4922fa306a.js'
+                'app/app-ef59aecae8.js'
             ]);
         })
     );

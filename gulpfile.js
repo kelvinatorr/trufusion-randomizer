@@ -43,6 +43,10 @@ gulp.task('copy-files', function() {
     var manifest = gulp.src('app/manifest.json')
         .pipe(gulp.dest('dist'));
 
+    var jsFiles = ['app/assets/js/idb.min.js'];
+    var js = gulp.src(jsFiles)
+        .pipe(gulp.dest('dist/assets/js'));
+
     return merge(imgs, css, templates, sw, manifest);
 });
 
