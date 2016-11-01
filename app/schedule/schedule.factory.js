@@ -32,9 +32,14 @@
                     }
                 }).catch(function() {
                     // see if it is in the cache
-                    getDataCache(formParams).then(function(cacheData) {
-                        self.data = JSON.parse(cacheData);
-                        resolve(self);
+                    console.log('getting from cache');
+                    return getDataCache(formParams).then(function(cacheData) {
+                        if(cacheData !== undefined) {
+                            self.data = JSON.parse(cacheData);
+                            resolve(self);
+                        } else {
+                            reject({message: 'You are offline and there is no data cached for this day.'});
+                        }
                     }).catch(reject);
                 });
             });
@@ -51,14 +56,16 @@
         }
 
         function getDataCache(formParams) {
+            var getDataDBData = function(db) {
+                var tx = db.transaction(storeName);
+                var keyValStore = tx.objectStore(storeName);
+                return keyValStore.get(formParams.location + '|' + moment(formParams.date).format('YYYY-MM-DD'));
+            };
+
             if(dbPromise) {
-                return dbPromise.then(function(db) {
-                    var tx = db.transaction(storeName);
-                    var keyValStore = tx.objectStore(storeName);
-                    return keyValStore.get(formParams.location + '|' + moment(formParams.date).format('YYYY-MM-DD'));
-                });
+                return dbPromise.then(getDataDBData);
             } else {
-                return Promise.reject();
+                return openDatabase().then(getDataDBData);
             }
         }
 
@@ -117,7 +124,6 @@
 
         function openDatabase() {
             dbPromise = idb.open('trufusion-class-randomizer', 1, function(upgradeDb) {
-                console.log('opened');
                 return upgradeDb.createObjectStore(storeName);
             });
             return dbPromise;

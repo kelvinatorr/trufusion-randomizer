@@ -26,7 +26,7 @@ self.addEventListener('install', function(event) {
                 'randomizer/randomizer.component.html',
                 'class-filter/class-filter.component.html',
                 'schedule-display/schedule-display.component.html',
-                'app/app-ef59aecae8.js'
+                'app/app-f15fe7d286.js'
             ]);
         })
     );

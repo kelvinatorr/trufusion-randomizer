@@ -5,7 +5,7 @@ var cheerio = require('cheerio');
 var app = express();
 var moment = require('moment');
 
-const environ = 'app';
+const environ = 'dist';
 
 app.use(express.static(environ));
 
@@ -26,7 +26,7 @@ app.get('/schedule.json', function(req, res){
 
     var classes = [];
 
-    if(environ !== 'dist' || true) {
+    if(environ !== 'dist') {
         fs.readFile('output.html', function(err, data) {
             var $ = cheerio.load(data);
             $('table').filter(function () {

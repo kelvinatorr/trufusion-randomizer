@@ -28,15 +28,17 @@
             // make the request
             Schedule.getData(formModel).then(function() {
                 $ctrl.scheduleData = Schedule.data;
-                $ctrl.filter = formModel;
+                $ctrl.filter = angular.copy(formModel);
                 //show the list
-            }).catch(function() {
+            }).catch(function(error) {
+                var errorMessage = error.message ? error.message : 'Solar flares? Solar flares.';
                 $mdDialog.show(
                     $mdDialog.alert()
                         .clickOutsideToClose(true)
                         .title('An error occurred')
                         .ariaLabel('An error occurred')
-                        .ok('Okayyy')
+                        .textContent(errorMessage)
+                        .ok('Okay')
                         .openFrom('#filterSubmit')
                 );
             }).then(function() {
