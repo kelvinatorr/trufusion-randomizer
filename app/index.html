@@ -38,5 +38,14 @@
     <script src="class-filter/class-filter.component.js"></script>
     <script src="schedule-display/schedule-display.component.js"></script>
     <!-- endbuild -->
+    <script type="text/javascript">
+        (function() {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/sw.js').catch(function() {
+                    console.log('Service worker registration failed');
+                });
+            }
+        })();
+    </script>
 </body>
 </html>

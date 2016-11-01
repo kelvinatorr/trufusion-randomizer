@@ -36,7 +36,14 @@ gulp.task('copy-files', function() {
         .pipe(htmlmin({removeComments: true, collapseWhitespace: true, conservativeCollapse: true}))
         .pipe(gulp.dest('dist'));
 
-    return merge(imgs, css, templates);
+    var sw = gulp.src('app/sw.js')
+        .pipe(uglify())
+        .pipe(gulp.dest('dist'));
+
+    var manifest = gulp.src('app/manifest.json')
+        .pipe(gulp.dest('dist'));
+
+    return merge(imgs, css, templates, sw, manifest);
 });
 
 
