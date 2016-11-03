@@ -21,78 +21,29 @@
 
 <body ng-app="tcrApp" layout="column" ng-cloak>
     <ui-view></ui-view>
-    <!-- Angular Material requires Angular.js Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-aria.min.js"></script>
-    <!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-messages.min.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
-    <!-- Angular Material Library -->
     <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
-    <!-- Application bootstrap  -->
-    <script type="text/javascript">
-        (function () {
-            var app = angular.module('tcrApp', ['ngMaterial', 'ngAria', 'ngAnimate', 'ui.router']);
-
-            app.config(['$compileProvider', '$stateProvider', '$urlRouterProvider', '$urlMatcherFactoryProvider', '$mdIconProvider', '$mdThemingProvider', AppConfig]);
-
-            function AppConfig($compileProvider, $stateProvider, $urlRouterProvider, $urlMatcherFactoryProvider, $mdIconProvider, $mdThemingProvider) {
-                $urlMatcherFactoryProvider.caseInsensitive(true);
-                // ignore trailing slashes.
-                $urlMatcherFactoryProvider.strictMode(false);
-
-                $stateProvider
-                        .state('app', {
-                            abstract: true,
-                            url: '/app',
-                            template: '<shell></shell>'
-                        })
-                        .state('randomizer', {
-                            parent: 'app',
-                            url: '/randomizer',
-                            template: '<randomizer></randomizer>',
-                            data: {
-                                displayName: 'TF Random Class Picker',
-                                action: 'randomize'
-                            }
-                        })
-                        .state('scheduleDisplay', {
-                            parent: 'app',
-                            url: '/schedule',
-                            template: '<schedule-display></schedule-display>',
-                            resolve: {
-                                schedule: ['Schedule', function(Schedule) {
-                                    return Schedule.getData({location: 'Eastern', date: new Date()});
-                                }]
-                            },
-                            data: {
-                                displayName: 'TF Schedule',
-                                action: 'view'
-                            }
-                        });
-
-
-                $urlRouterProvider.otherwise('/app/randomizer');
-
-                $mdIconProvider
-                        .icon("menu", "./assets/svg/menu.svg", 24);
-
-                $mdThemingProvider.theme('default')
-                        .primaryPalette('cyan')
-                        .accentPalette('deep-orange');
-
-                // Remove debug info when in production.
-                if (window.location.host.split(':')[0] != 'localhost') $compileProvider.debugInfoEnabled(false);
-            }
-
-        })();
-
-    </script>
+    <script src="assets/js/idb.min.js"></script>
+    <!-- build:js app/app.js -->
+    <script src="app.js"></script>
     <script src="shell/shell.component.js"></script>
     <script src="randomizer/randomizer.component.js"></script>
     <script src="schedule/schedule.factory.js"></script>
     <script src="class-filter/class-filter.component.js"></script>
     <script src="schedule-display/schedule-display.component.js"></script>
+    <!-- endbuild -->
+    <script type="text/javascript">
+        (function() {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/sw.js').catch(function() {
+                    console.log('Service worker registration failed');
+                });
+            }
+        })();
+    </script>
 </body>
 </html>
