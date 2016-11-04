@@ -27,7 +27,14 @@
         function getData(formParams) {
             //test(formParams);
             var sourceFromCache = Rx.Observable.fromPromise(getDataCache(formParams));
-            var sourceFromHTTP = Rx.Observable.fromPromise(getDataHTTP(formParams));
+            var sourceFromHTTP = Rx.Observable.fromPromise(getDataHTTP(formParams).then(data => {
+                if(dbPromise) {
+                    dbPromise.then(function(db) {
+                        addToCache(db, formParams.location, data);
+                    });
+                }
+                return data;
+            }));
             return Rx.Observable.concat(sourceFromCache, sourceFromHTTP);
         }
 
