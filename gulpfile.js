@@ -11,6 +11,7 @@ var useref = require('gulp-useref');
 var rev = require('gulp-rev');
 var htmlmin = require('gulp-htmlmin');
 var babel = require('gulp-babel');
+var replace = require('gulp-replace');
 
 // delete everything in the www folder
 gulp.task('clean-dist', function () {
@@ -64,7 +65,6 @@ gulp.task('build-html', function () {
         return filesToRev[file.basename];
     };
 
-    // concatenate, annotate, minify our vendor js files
     // concatenate, annotate, minify our js files
     return gulp.src("app/index.html")
         .pipe(useref())      // Concatenate with gulp-useref
@@ -77,10 +77,40 @@ gulp.task('build-html', function () {
         .pipe(gulpif(condition, rev()))                // Rename the concatenated files
         .pipe(revReplace())         // Substitute in new filenames
         //.pipe(htmlmin({removeComments: true}))
+        .pipe(gulp.dest('dist'))
+        .pipe(rev.manifest())
         .pipe(gulp.dest('dist'));
 });
 
+gulp.task('build-sw', function() {
+    return runSequence('write-sw-app-hash', 'hash-sw', 'write-sw-cache-hash', 'clean-rev-manifest');
+});
 
+gulp.task('write-sw-app-hash', function() {
+    var manifest = gulp.src("./dist/rev-manifest.json");
+
+    return gulp.src('dist/sw.js')
+        .pipe(revReplace({manifest: manifest}))
+        .pipe(gulp.dest('dist'));
+});
+
+gulp.task('hash-sw', function() {
+    return gulp.src('app/sw.js')
+        .pipe(rev())
+        .pipe(rev.manifest('dist/rev-manifest.json', {merge: true}))
+        .pipe(gulp.dest(''));
+});
+
+gulp.task('write-sw-cache-hash', function() {
+    var p = require("./dist/rev-manifest.json");
+    return gulp.src('dist/sw.js')
+        .pipe(replace('tcr-static-v0', 'tcr-static-' + p['sw.js'].substr(0, p['sw.js'].length - 3)))
+        .pipe(gulp.dest('dist'));
+});
+
+gulp.task('clean-rev-manifest', function() {
+    return del('dist/rev-manifest.json');
+});
 
 gulp.task('minify-index-html', function() {
     return gulp.src('dist/index.html')
@@ -93,6 +123,6 @@ gulp.task('minify-index-html', function() {
 gulp.task('build', function(callback) {
     runSequence('clean-dist',
         ['copy-files'],
-        'build-html', 'minify-index-html',
+        'build-html', 'minify-index-html', 'build-sw',
         callback);
 });
