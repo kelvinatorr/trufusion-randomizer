@@ -14,17 +14,33 @@
         var dbPromise = null;
 
         return  {
-            data: undefined,
             getData: getData,
-            initCache: initCache
+            initCache: initCache,
+            getDataHTTPFirst: getDataHTTPFirst
         };
 
+        /**
+         * Get data from the cache first
+         * @param formParams
+         * @returns {Array.<T>|string}
+         */
         function getData(formParams) {
-            var self = this;
+            //test(formParams);
+            var sourceFromCache = Rx.Observable.fromPromise(getDataCache(formParams));
+            var sourceFromHTTP = Rx.Observable.fromPromise(getDataHTTP(formParams));
+            return Rx.Observable.concat(sourceFromCache, sourceFromHTTP);
+        }
+
+        /**
+         * Get data from http first and if that fails check the cache
+         * @param formParams
+         * @returns {*}
+         */
+        function getDataHTTPFirst(formParams) {
             return $q(function(resolve, reject) {
                 getDataHTTP(formParams).then(function(responseData) {
-                    self.data = responseData;
-                    resolve(self);
+                    //self.data = responseData;
+                    resolve(responseData);
                     if(dbPromise) {
                         dbPromise.then(function(db) {
                             addToCache(db, formParams.location, responseData);
@@ -34,9 +50,9 @@
                     // see if it is in the cache
                     console.log('getting from cache');
                     return getDataCache(formParams).then(function(cacheData) {
-                        if(cacheData !== undefined) {
-                            self.data = JSON.parse(cacheData);
-                            resolve(self);
+                        if(cacheData !== null) {
+                            //self.data = JSON.parse(cacheData);
+                            resolve(cacheData);
                         } else {
                             reject({message: 'You are offline and there is no data cached for this day.'});
                         }
@@ -44,6 +60,7 @@
                 });
             });
         }
+
 
         function getDataHTTP(formParams) {
             return $q(function(resolve, reject) {
@@ -59,7 +76,14 @@
             var getDataDBData = function(db) {
                 var tx = db.transaction(storeName);
                 var keyValStore = tx.objectStore(storeName);
-                return keyValStore.get(formParams.location + '|' + moment(formParams.date).format('YYYY-MM-DD'));
+                return keyValStore.get(formParams.location + '|' + moment(formParams.date).format('YYYY-MM-DD'))
+                    .then(data => {
+                        if(data) {
+                            return JSON.parse(data);
+                        } else {
+                            return null;
+                        }
+                    });
             };
 
             if(dbPromise) {
@@ -79,14 +103,13 @@
                 if(!db) return;
 
                 var promises = [];
-                // get today plus 7 schedules
+                // get today plus 3 schedules
                 locations.forEach(function(l) {
                     for(var i = 0; i < 4; i++) {
                         var paramMoment = moment().add(i, 'days');
                         var param = {location: l, date: paramMoment.toDate()};
                         promises.push(getDataHTTP(param).then(function(responseData) {
                             return addToCache(db,l, responseData);
-                            //return store.put(JSON.stringify(responseData), l + '|' + paramMoment.format('YYYY-MM-DD'));
                         }));
                     }
                 });
