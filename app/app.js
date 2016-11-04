@@ -27,11 +27,6 @@
                 parent: 'app',
                 url: '/schedule',
                 template: '<schedule-display></schedule-display>',
-                resolve: {
-                    schedule: ['Schedule', function(Schedule) {
-                        return Schedule.getData({location: 'Eastern', date: new Date()});
-                    }]
-                },
                 data: {
                     displayName: 'TF Schedule',
                     action: 'view'

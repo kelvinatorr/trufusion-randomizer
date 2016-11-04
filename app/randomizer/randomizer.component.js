@@ -7,7 +7,7 @@
             controller: RandomizerCtrl
         });
 
-    function RandomizerCtrl(Schedule, $timeout) {
+    function RandomizerCtrl(Schedule, $timeout, $mdDialog) {
         var self = this;
 
         self.selectedSchedule = null;
@@ -22,8 +22,8 @@
             self.gettingData = true;
             self.selectedSchedule = {};
 
-            Schedule.getData(formModel).then(function() {
-                self.scheduleData = Schedule.data;
+            Schedule.getDataHTTPFirst(formModel).then(function(scheduleData) {
+                self.scheduleData = scheduleData;
                 var selectedIndex = Math.floor(Math.random() * self.scheduleData.length);
                 self.gettingData = false;
                 // randomly different schedules for 3 seconds
@@ -35,6 +35,18 @@
                         self.randomizerDone = true;
                     });
                 });
+            }).catch((error) => {
+                var errorMessage = error && error.message ? error.message : 'Solar flares? Solar flares.';
+                $mdDialog.show(
+                    $mdDialog.alert()
+                        .clickOutsideToClose(true)
+                        .title('An error occurred')
+                        .ariaLabel('An error occurred')
+                        .textContent(errorMessage)
+                        .ok('Okay')
+                        .openFrom('#filterSubmit')
+                );
+                self.gettingData = false;
             });
         };
 

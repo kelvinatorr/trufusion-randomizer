@@ -55,7 +55,6 @@ app.get('/schedule.json', function(req, res){
                     fitnessClass.instructor = mainInstructor + subInstructor;
                     classes.push(fitnessClass);
                 }
-
                 res.send(JSON.stringify(classes));
             });
         });
