@@ -10,6 +10,7 @@ var revReplace = require('gulp-rev-replace');
 var useref = require('gulp-useref');
 var rev = require('gulp-rev');
 var htmlmin = require('gulp-htmlmin');
+var babel = require('gulp-babel');
 
 // delete everything in the www folder
 gulp.task('clean-dist', function () {
@@ -67,6 +68,9 @@ gulp.task('build-html', function () {
     // concatenate, annotate, minify our js files
     return gulp.src("app/index.html")
         .pipe(useref())      // Concatenate with gulp-useref
+        .pipe(gulpif('app/*.js',babel({
+            presets: ['es2015']
+        })))
         .pipe(gulpif('app/*.js',ngAnnotate()))
         .pipe(gulpif('app/*.js',uglify()))
         .pipe(gulpif('css/*.css', minifyCss())) // Minify vendor CSS sources

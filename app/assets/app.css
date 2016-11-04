@@ -150,3 +150,8 @@ span.name {
 .tcr-padding-30 {
   padding: 30px;
 }
+
+/*shows the toast even when you scroll down*/
+body > md-toast {
+  position: fixed;
+}
