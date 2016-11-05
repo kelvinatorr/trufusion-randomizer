@@ -9,8 +9,6 @@ const environ = 'dist';
 
 app.use(express.static(environ));
 
-
-
 app.get('/schedule.json', function(req, res){
 
     const locationHash = {
@@ -33,8 +31,6 @@ app.get('/schedule.json', function(req, res){
                 var data = $(this);
 
                 var trs = data.children().slice(1);
-
-                console.log('Number of classes: ', trs.length);
 
                 for(var i = 0; i < trs.length; i++) {
                     var cheerioTr = $(trs[i]);
@@ -71,9 +67,7 @@ app.get('/schedule.json', function(req, res){
                     var data = $(this);
 
                     var trs = data.children().slice(1);
-
-                    console.log('Number of classes: ', trs.length);
-
+                    
                     for(var i = 0; i < trs.length; i++) {
                         var cheerioTr = $(trs[i]);
                         var fitnessClass = {calDate: startDate};
