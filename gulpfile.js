@@ -82,9 +82,6 @@ gulp.task('build-html', function () {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('build-sw', function() {
-    return runSequence('write-sw-app-hash', 'hash-sw', 'write-sw-cache-hash', 'clean-rev-manifest');
-});
 
 gulp.task('write-sw-app-hash', function() {
     var manifest = gulp.src("./dist/rev-manifest.json");
@@ -123,6 +120,6 @@ gulp.task('minify-index-html', function() {
 gulp.task('build', function(callback) {
     runSequence('clean-dist',
         ['copy-files'],
-        'build-html', 'minify-index-html', 'build-sw',
+        'build-html', 'minify-index-html', 'write-sw-app-hash', 'hash-sw', 'write-sw-cache-hash', 'clean-rev-manifest',
         callback);
 });
