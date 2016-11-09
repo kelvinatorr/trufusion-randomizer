@@ -155,3 +155,7 @@ span.name {
 body > md-toast {
   position: fixed;
 }
+
+.tcr-width-100 {
+  width: 100%;
+}

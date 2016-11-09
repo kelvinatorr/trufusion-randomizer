@@ -1,7 +1,7 @@
 <md-card flex>
     <md-card-title>
         <md-card-title-text>
-            <span class="md-subhead">Select the studio location and the date you want to {{$ctrl.action}}</span>
+            <span class="md-subhead">Select the studio location and the date you want to {{::$ctrl.action}}</span>
         </md-card-title-text>
     </md-card-title>
 
@@ -18,6 +18,14 @@
         </div>
         <div layout="column" class="tcr-padding-bottom-13">
             <md-datepicker ng-model="$ctrl.formModel.date" md-placeholder="Enter date" required></md-datepicker>
+        </div>
+        <div layout="row" class="tcr-padding-bottom-13" flex>
+            <md-button class="md-raised tcr-width-100" ng-click="$ctrl.previousDay()">
+                Previous Day
+            </md-button>
+            <md-button class="md-raised tcr-width-100" ng-click="$ctrl.nextDay()">
+                Next Day
+            </md-button>
         </div>
         <div layout="column" class="tcr-padding-bottom-13">
             <md-button id="filterSubmit" class="md-raised md-primary" ng-click="$ctrl.submit({formModel: $ctrl.formModel})">{{::$ctrl.action}}</md-button>

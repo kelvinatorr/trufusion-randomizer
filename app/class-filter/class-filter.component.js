@@ -21,6 +21,14 @@
 
         this.action = $state.current.data.action;
 
+        this.previousDay = function() {
+            this.formModel.date = moment(this.formModel.date).add(-1, 'd').toDate();
+        };
+
+        this.nextDay = function() {
+            this.formModel.date = moment(this.formModel.date).add(1, 'd').toDate();
+        };
+
 
     }
 })();
