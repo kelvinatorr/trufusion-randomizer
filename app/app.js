@@ -34,7 +34,7 @@
             });
 
 
-        $urlRouterProvider.otherwise('/app/randomizer');
+        $urlRouterProvider.otherwise('/app/schedule');
 
         $mdIconProvider
             .icon("menu", "./assets/svg/menu.svg", 24);
